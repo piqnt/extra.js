@@ -1,0 +1,7 @@
+{
+  "name": "extrajs",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/piqnt/extra.js.git"
+  }
+}
