@@ -1,8 +1,28 @@
-function Pool(create, checkout, checkin, discard) {
+function Pool(_create, _exit, _enter, _discard) {
 
   var _list = [], _max = 4, _name = "";
 
   var _created = 0, _checkedout = 0, _checkedin = 0, _discarded = 0;
+
+  this.create = function(create) {
+    _create = create;
+    return this;
+  };
+
+  this.exit = function(exit) {
+    _exit = func;
+    return this;
+  };
+
+  this.enter = function(enter) {
+    _enter = func;
+    return this;
+  };
+
+  this.discard = function(discard) {
+    _discard = discard;
+    return this;
+  };
 
   this.max = function(max) {
     if (!arguments.length) {
@@ -20,27 +40,27 @@ function Pool(create, checkout, checkin, discard) {
     return this;
   };
 
-  this.checkOut = function() {
+  this.checkOut = function(create) {
     var item;
     if (_list.length) {
       item = _list.shift();
     } else {
       _created++;
-      item = create.call(this);
+      item = (create || _create).apply(this);
     }
     _checkedout++;
-    checkout && checkout.call(this, item);
+    _exit && _exit.call(this, item);
     return item;
   };
 
-  this.checkIn = function(item) {
+  this.checkIn = function(item, discard) {
     if (_list.length < _max) {
       _checkedin++;
-      checkin && checkin.call(this, item);
+      _enter && _enter.call(this, item);
       _list.push(item);
     } else {
       _discarded++;
-      discard && discard.call(this, item);
+      (discard = discard || _discard) && discard.call(this, item);
     }
   };
 
