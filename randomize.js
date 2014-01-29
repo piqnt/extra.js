@@ -1,4 +1,10 @@
-function Randomize() {
+var X = X || {};
+
+X.randomize = function() {
+  return new X.Randomize();
+}
+
+X.Randomize = function Randomize() {
   this._options = [];
   this._nope = null;
   this._filter = function(option) {
@@ -65,7 +71,7 @@ Randomize.prototype.random = function() {
   }
 
   var sum = 0;
-  for ( var i = 0; i < this._options.length; i++) {
+  for (var i = 0; i < this._options.length; i++) {
     var option = this._options[i];
     option[2] = option[1].apply(null, arguments);
     sum += (option[2]);
@@ -73,7 +79,7 @@ Randomize.prototype.random = function() {
 
   var rand = Math.random() * sum;
   var selected = this._nope;
-  for ( var i = 0; i < this._options.length; i++) {
+  for (var i = 0; i < this._options.length; i++) {
     var option = this._options[i];
     if ((rand -= option[2]) < 0) {
       selected = option[0];
