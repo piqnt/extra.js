@@ -4,7 +4,7 @@ X.pool = function() {
   return new X.Pool();
 }
 
-X.Pool = function Pool(_create, _exit, _enter, _discard) {
+X.Pool = Pool = function(_create, _exit, _enter, _discard) {
 
   var _list = [], _max = 4, _name = "";
 

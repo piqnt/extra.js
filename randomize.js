@@ -4,7 +4,7 @@ X.randomize = function() {
   return new X.Randomize();
 }
 
-X.Randomize = function Randomize() {
+X.Randomize = Randomize = function() {
   this._options = [];
   this._nope = null;
   this._filter = function(option) {
