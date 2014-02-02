@@ -1,10 +1,6 @@
-var X = X || {};
+var Extra = Extra || {}, X = Extra;
 
-X.pool = function() {
-  return new X.Pool();
-}
-
-X.Pool = Pool = function(_create, _exit, _enter, _discard) {
+Extra.Pool = Pool = function(_create, _exit, _enter, _discard) {
 
   var _list = [], _max = 4, _name = "";
 

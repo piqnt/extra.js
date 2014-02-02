@@ -1,10 +1,6 @@
-var X = X || {};
+var Extra = Extra || {}, X = Extra;
 
-X.randomize = function() {
-  return new X.Randomize();
-}
-
-X.Randomize = Randomize = function() {
+Extra.Randomize = Randomize = function() {
   this._options = [];
   this._nope = null;
   this._filter = function(option) {
@@ -56,13 +52,19 @@ Randomize.prototype.condition = function(condition, reset) {
   return this;
 };
 
+Randomize.prototype.test = function() {
+  this._failed = this._condition && !this._condition.apply(null, arguments);
+  return this;
+};
+
 Randomize.prototype.select = function(select) {
   return this._filter(this._options[select][0]);
 };
 
 Randomize.prototype.random = function() {
 
-  if (this._condition && !this._condition.apply(null, arguments)) {
+  if (this._failed) {
+    this._failed = false;
     return this._filter(this._nope);
   }
 
@@ -92,12 +94,13 @@ Randomize.prototype.random = function() {
 Randomize.prototype.spacing = function(spacing) {
   spacing = Randomize._numbor(spacing, 1);
   var space = null;
-  this.condition(function() {
+  this.condition(function(t) {
+    t = arguments.length ? t : 1;
     if (space === null) {
       space = spacing.apply(null, arguments);
       return false;
     }
-    if (--space < 0) {
+    if ((space -= t) < 0) {
       space = spacing.apply(null, arguments);
       return true;
     }
@@ -111,9 +114,7 @@ Randomize.prototype.spacing = function(spacing) {
 Randomize.prototype.prob = function(prob) {
   prob = Randomize._numbor(prob, 1);
   this.condition(function() {
-    var p = prob();
-    console.log(p);
-    return p > Math.random();
+    return Math.random() < prob();
   });
   return this;
 };
