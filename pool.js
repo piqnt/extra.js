@@ -1,3 +1,10 @@
+/*
+ * ExtraJS
+ * Copyright (c) 2013-2014 Ali Shakiba, Piqnt LLC and other contributors
+ * Available under the MIT license
+ * @license
+ */
+
 var Extra = Extra || {}, X = Extra;
 
 Extra.Pool = Pool = function(_create, _exit, _enter, _discard) {

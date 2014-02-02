@@ -1,3 +1,10 @@
+/*
+ * ExtraJS
+ * Copyright (c) 2013-2014 Ali Shakiba, Piqnt LLC and other contributors
+ * Available under the MIT license
+ * @license
+ */
+
 var Extra = Extra || {}, X = Extra;
 
 Extra.Randomize = Randomize = function() {
@@ -91,12 +98,12 @@ Randomize.prototype.random = function() {
   return this._filter(selected);
 };
 
-Randomize.prototype.spacing = function(spacing) {
+Randomize.prototype.spacing = function(spacing, init) {
   spacing = Randomize._numbor(spacing, 1);
-  var space = null;
+  var space = init;
   this.condition(function(t) {
     t = arguments.length ? t : 1;
-    if (space === null) {
+    if (typeof space !== "number") {
       space = spacing.apply(null, arguments);
       return false;
     }
