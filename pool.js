@@ -5,9 +5,6 @@
  * @license
  */
 
-var Extra = Extra || {}, X = Extra;
-Extra.Pool = Pool;
-
 function Pool() {
   var _create, _exit, _enter, _discard;
   var _list = [], _max = 4, _name = "";

@@ -5,9 +5,6 @@
  * @license
  */
 
-var Extra = Extra || {}, X = Extra;
-Extra.Randomize = Randomize;
-
 function Randomize() {
   this._options = [];
   this._nope = null;
