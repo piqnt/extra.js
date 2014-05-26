@@ -80,15 +80,15 @@
   }
 
   if (typeof define === "function" && define.amd) { // AMD
-    define('Delta', [], function() {
-      return Delta;
+    define('Pool', [], function() {
+      return Pool;
     });
 
   } else if (typeof module !== 'undefined') { // CommonJS
-    module.exports = Delta;
+    module.exports = Pool;
 
   } else { // Other
-    arguments[0].Delta = Delta;
+    arguments[0].Pool = Pool;
   }
 
 })(this);

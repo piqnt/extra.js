@@ -138,15 +138,15 @@
   };
 
   if (typeof define === "function" && define.amd) { // AMD
-    define('Delta', [], function() {
-      return Delta;
+    define('Randomize', [], function() {
+      return Randomize;
     });
 
   } else if (typeof module !== 'undefined') { // CommonJS
-    module.exports = Delta;
+    module.exports = Randomize;
 
   } else { // Other
-    arguments[0].Delta = Delta;
+    arguments[0].Randomize = Randomize;
   }
 
 })(this);

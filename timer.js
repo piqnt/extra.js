@@ -64,15 +64,15 @@
   }
 
   if (typeof define === "function" && define.amd) { // AMD
-    define('Delta', [], function() {
-      return Delta;
+    define('Timer', [], function() {
+      return Timer;
     });
 
   } else if (typeof module !== 'undefined') { // CommonJS
-    module.exports = Delta;
+    module.exports = Timer;
 
   } else { // Other
-    arguments[0].Delta = Delta;
+    arguments[0].Timer = Timer;
   }
 
 })(this);
