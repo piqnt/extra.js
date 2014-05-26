@@ -5,58 +5,74 @@
  * @license
  */
 
-function Timer() {
-  var timers = {};
+(function() {
 
-  this.once = function(name, callback, delay) {
-    return this.repeat(name, callback, delay, 1);
-  }
+  function Timer() {
+    var timers = {};
 
-  this.repeat = function(name, callback, delay, repeat) {
-    repeat = arguments.length > 2 ? repeat : Infinity;
-    return this.set(name, {
-      callback : callback,
-      repeat : repeat,
-      delay : delay
-    });
-  }
-
-  this.set = function(name, timer) {
-    if (typeof timer.delay !== "function") {
-      var delay = timer.delay;
-      timer.delay = function() {
-        return delay;
-      };
+    this.once = function(name, callback, delay) {
+      return this.repeat(name, callback, delay, 1);
     }
-    timer.time = timer.time || timer.delay();
-    if (!(+timer.repeat >= 1)) {
-      timer.repeat = 1;
+
+    this.repeat = function(name, callback, delay, repeat) {
+      repeat = arguments.length > 2 ? repeat : Infinity;
+      return this.set(name, {
+        callback : callback,
+        repeat : repeat,
+        delay : delay
+      });
     }
-    timers[name] = timer;
-  }
 
-  this.unset = this.clear = function(name) {
-    delete timers[name];
-  }
+    this.set = function(name, timer) {
+      if (typeof timer.delay !== "function") {
+        var delay = timer.delay;
+        timer.delay = function() {
+          return delay;
+        };
+      }
+      timer.time = timer.time || timer.delay();
+      if (!(+timer.repeat >= 1)) {
+        timer.repeat = 1;
+      }
+      timers[name] = timer;
+    }
 
-  this.empty = function() {
-    for ( var name in timers) {
+    this.unset = this.clear = function(name) {
       delete timers[name];
     }
-  }
 
-  this.tick = function(t) {
-    for ( var name in timers) {
-      var timer = timers[name];
-      timer.time -= t;
-      if (timer.time <= 0) {
-        if (--timer.repeat <= 0) {
-          this.clear(name);
-        } else {
-          timer.time = timer.delay();
+    this.empty = function() {
+      for ( var name in timers) {
+        delete timers[name];
+      }
+    }
+
+    this.tick = function(t) {
+      for ( var name in timers) {
+        var timer = timers[name];
+        timer.time -= t;
+        if (timer.time <= 0) {
+          if (--timer.repeat <= 0) {
+            this.clear(name);
+          } else {
+            timer.time = timer.delay();
+          }
+          timer.callback();
         }
-        timer.callback();
       }
     }
   }
-}
+
+  if (typeof define === "function" && define.amd) { // AMD
+    define('Delta', [], function() {
+      return Delta;
+    });
+
+  } else if (typeof module !== 'undefined') { // CommonJS
+    module.exports = Delta;
+
+  } else { // Other
+    arguments[0].Delta = Delta;
+  }
+
+})(this);
