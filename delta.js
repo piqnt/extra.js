@@ -111,8 +111,7 @@
     };
 
     this.toString = function() {
-      return "+[" + this.enter() + "] -[" + this.exit() + "] =["
-          + this.update() + "]";
+      return "+[" + _entered + "] -[" + _exited + "] =[" + _data + "]";
     };
   }
 
