@@ -116,15 +116,15 @@
   }
 
   if (typeof define === "function" && define.amd) { // AMD
-    define('Delta', [], function() {
+    define(function() {
       return Delta;
     });
-
-  } else if (typeof module !== 'undefined') { // CommonJS
+  }
+  if (typeof module !== 'undefined') { // CommonJS
     module.exports = Delta;
-
-  } else { // Other
-    arguments[0].Delta = Delta;
+  }
+  if (window) { // Browser
+    window.Delta = Delta;
   }
 
-})(this);
+})();

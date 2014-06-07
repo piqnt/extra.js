@@ -64,15 +64,15 @@
   }
 
   if (typeof define === "function" && define.amd) { // AMD
-    define('Timer', [], function() {
+    define(function() {
       return Timer;
     });
-
-  } else if (typeof module !== 'undefined') { // CommonJS
+  }
+  if (typeof module !== 'undefined') { // CommonJS
     module.exports = Timer;
-
-  } else { // Other
-    arguments[0].Timer = Timer;
+  }
+  if (window) { // Browser
+    window.Timer = Timer;
   }
 
-})(this);
+})();
