@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="spline.js"></script>
+<script>
+  function run() {
+    var canvas = document.getElementById("canvas");
+    if (null == canvas || !canvas.getContext)
+      return;
+
+    var ctx = canvas.getContext("2d");
+
+    var points = [ [ 110, 200 ], [ 200, 50 ], [ 210, 50 ], [ 300, 200 ] ];
+    draw(ctx, Spline.catmullrom(points, {
+      alpha : 0.2
+    }), "black", 1);
+    draw(ctx, points, "red", 3);
+    draw(ctx, Spline.catmullrom(points, {
+      alpha : 0.2,
+      close : true
+    }), "black", 1);
+    draw(ctx, points, "red", 3);
+
+    var points = [ [ 100, 100 ], [ 200, 50 ], [ 300, 100 ], [ 400, 50 ],
+        [ 500, 100 ] ];
+    draw(ctx, Spline.catmullrom(points, {
+      alpha : 0.2
+    }), "black", 1);
+    draw(ctx, points, "red", 3);
+
+    var points = [ [ 100, 100 ], [ 300, 100 ], [ 100, 300 ], [ 300, 300 ] ];
+    draw(ctx, Spline.bezier(points), "black", 1);
+    draw(ctx, points, "red", 3);
+  }
+
+  function draw(ctx, data, color, r) {
+    ctx.lineWidth = r;
+    ctx.strokeStyle = color;
+    if (typeof data == 'function') {
+      for (var i = -50; i <= 150; i++) {
+        var point = data(i / 100);
+        dot(ctx, point.x, point.y, r);
+      }
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        dot(ctx, data[i].x || data[i][0], data[i].y || data[i][1], r);
+      }
+    }
+  }
+
+  function dot(ctx, x, y, r) {
+    ctx.beginPath();
+    ctx.arc(x, y, r / 2, 0, Math.PI * 2);
+    ctx.stroke();
+    ctx.closePath();
+  }
+</script>
+</head>
+<body onload="run()">
+  <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+</html>

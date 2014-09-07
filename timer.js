@@ -12,7 +12,7 @@
 
     this.once = function(name, callback, delay) {
       return this.repeat(name, callback, delay, 1);
-    }
+    };
 
     this.repeat = function(name, callback, delay, repeat) {
       repeat = arguments.length > 2 ? repeat : Infinity;
@@ -21,7 +21,7 @@
         repeat : repeat,
         delay : delay
       });
-    }
+    };
 
     this.set = function(name, timer) {
       if (typeof timer.delay !== "function") {
@@ -35,17 +35,17 @@
         timer.repeat = 1;
       }
       timers[name] = timer;
-    }
+    };
 
     this.unset = this.clear = function(name) {
       delete timers[name];
-    }
+    };
 
     this.empty = function() {
       for ( var name in timers) {
         delete timers[name];
       }
-    }
+    };
 
     this.tick = function(t) {
       for ( var name in timers) {
@@ -60,7 +60,7 @@
           timer.callback();
         }
       }
-    }
+    };
   }
 
   if (typeof define === "function" && define.amd) { // AMD
