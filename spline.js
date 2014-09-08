@@ -37,12 +37,12 @@
 
       if (ps.length == 1) {
         // on point
-        return function(t, cb) {
-          return callback(xs[0], ys[0], cb);
+        return function(t, xy) {
+          return __xy(xs[0], ys[0], xy);
         };
       } else if (ps.length == 2) {
         // two point, a line
-        return function(t, cb) {
+        return function(t, xy) {
           if (t < 0) {
             t = t - (t | 0) + 1;
           } else if (t > 1) {
@@ -50,7 +50,7 @@
           }
           var x = (1 - t) * xs[0] + t * xs[1];
           var y = (1 - t) * ys[0] + t * ys[1];
-          return callback(x, y, cb);
+          return __xy(x, y, xy);
         };
       }
 
@@ -82,7 +82,7 @@
         }
       }
 
-      return function(t, cb) {
+      return function(t, xy) {
         if (close) {
           if (t < 0) {
             t = t - (t | 0) + 1;
@@ -98,7 +98,7 @@
             xs[i + 1], xs[i + 2], xs[i + 3]);
         var y = interpolate(t, ts[i], ts[i + 1], ts[i + 2], ts[i + 3], ys[i],
             ys[i + 1], ys[i + 2], ys[i + 3]);
-        return callback(x, y, cb);
+        return __xy(x, y, xy);
       };
     };
 
@@ -138,30 +138,30 @@
     var by = 3 * (fy(ps[2]) - fy(ps[1])) - cy;
     var ay = fy(ps[3]) - fy(ps[0]) - cy - by;
 
-    return function(t, cb) {
+    return function(t, xy) {
       var t2 = t * t, t3 = t * t * t;
       var x = ax * t3 + bx * t2 + cx * t + dx;
       var y = ay * t3 + by * t2 + cy * t + dy;
-      return callback(x, y, cb);
+      return __xy(x, y, xy);
     };
   };
 
-  function callback(x, y, cb) {
-    if (!cb) {
+  function __xy(x, y, xy) {
+    if (!xy) {
       return {
         x : x,
         y : y
       };
-    } else if (typeof cb === "function") {
-      return cp(x, y);
-    } else if (cb instanceof Array) {
-      cb[0] = x;
-      cb[1] = y;
-      return cb;
-    } else if (typeof cb === "object") {
-      cb.x = x;
-      cb.y = y;
-      return cb;
+    } else if (typeof xy === "function") {
+      return xy(x, y);
+    } else if (xy instanceof Array) {
+      xy[0] = x;
+      xy[1] = y;
+      return xy;
+    } else if (typeof xy === "object") {
+      xy.x = x;
+      xy.y = y;
+      return xy;
     } else {
       return {
         x : x,
