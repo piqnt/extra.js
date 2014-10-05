@@ -1,0 +1,17 @@
+{
+  "name": "extrajs",
+  "version": "0.1.0",
+  "description": "",
+  "keywords": [
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/piqnt/extrajs.git"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "*",
+    "should": "*"
+  }
+}

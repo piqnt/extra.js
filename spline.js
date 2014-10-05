@@ -5,11 +5,11 @@
  * @license
  */
 
+function Spline() {
+
+}
+
 (function() {
-
-  function Spline() {
-
-  }
 
   Spline.catmullrom = function(ps, conf) {
 
@@ -168,16 +168,13 @@
     }
   }
 
-  if (typeof define === "function" && define.amd) { // AMD
-    define(function() {
-      return Spline;
-    });
-  }
-  if (typeof module !== 'undefined') { // CommonJS
-    module.exports = Spline;
-  }
-  if (window) { // Browser
-    window.Spline = Spline;
-  }
-
 })();
+
+if (typeof define === "function" && define.amd) { // AMD
+  define(function() {
+    return Spline;
+  });
+}
+if (typeof module !== 'undefined') { // CommonJS
+  module.exports = Spline;
+}
