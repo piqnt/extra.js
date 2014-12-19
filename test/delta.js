@@ -2,7 +2,7 @@ var should = require('should');
 var Delta = require('../delta');
 
 describe('Delta', function() {
-  it('Basic', function(done) {
+  it('Basic', function() {
 
     var delta = new Delta(function(d) {
       return d;
@@ -18,6 +18,5 @@ describe('Delta', function() {
     delta.enter().should.eql([ 6 ])
     delta.update().should.eql([ 2, 4, 6 ])
 
-    done();
   });
 });
