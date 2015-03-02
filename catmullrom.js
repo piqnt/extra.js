@@ -1,17 +1,13 @@
 /*
  * ExtraJS
- * Copyright (c) 2013-2014 Ali Shakiba, Piqnt LLC and other contributors
+ * Copyright (c) 2015 Ali Shakiba, Piqnt LLC
  * Available under the MIT license
  * @license
  */
 
-function Spline() {
-
-}
-
 (function() {
 
-  Spline.catmullrom = function(ps, conf) {
+  function catmullrom(ps, conf) {
 
     if (!ps || !ps.length) {
       return null;
@@ -99,7 +95,7 @@ function Spline() {
           ys[i + 1], ys[i + 2], ys[i + 3]);
       return __xy(x, y, xy);
     };
-  };
+  }
 
   function cr_interpolate(t, t0, t1, t2, t3, v0, v1, v2, v3) {
     var l01 = (v0 * (t1 - t) + v1 * (t - t0)) / (t1 - t0);
@@ -110,39 +106,6 @@ function Spline() {
     var c12 = (l012 * (t2 - t) + l123 * (t - t1)) / (t2 - t1);
     return c12;
   }
-
-  Spline.bezier = function(ps, conf) {
-
-    if (!ps || !ps.length) {
-      return null;
-    }
-
-    conf = conf || {};
-
-    var fx = conf.fx || function(p) {
-      return p.x || p[0];
-    };
-    var fy = conf.fy || function(p) {
-      return p.y || p[1];
-    };
-
-    var dx = fx(ps[0]);
-    var cx = 3 * (fx(ps[1]) - fx(ps[0]));
-    var bx = 3 * (fx(ps[2]) - fx(ps[1])) - cx;
-    var ax = fx(ps[3]) - fx(ps[0]) - cx - bx;
-
-    var dy = fy(ps[0]);
-    var cy = 3 * (fy(ps[1]) - fy(ps[0]));
-    var by = 3 * (fy(ps[2]) - fy(ps[1])) - cy;
-    var ay = fy(ps[3]) - fy(ps[0]) - cy - by;
-
-    return function(t, xy) {
-      var t2 = t * t, t3 = t * t * t;
-      var x = ax * t3 + bx * t2 + cx * t + dx;
-      var y = ay * t3 + by * t2 + cy * t + dy;
-      return __xy(x, y, xy);
-    };
-  };
 
   function __xy(x, y, xy) {
     if (!xy) {
@@ -168,13 +131,22 @@ function Spline() {
     }
   }
 
-})();
-
-if (typeof define === "function" && define.amd) { // AMD
-  define(function() {
-    return Spline;
-  });
-}
-if (typeof module !== 'undefined') { // CommonJS
-  module.exports = Spline;
-}
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports) {
+      exports = module.exports = catmullrom;
+    }
+    exports.catmullrom = catmullrom;
+  } else if (typeof define === 'function' && define.amd) {
+    define([], function() {
+      return catmullrom;
+    });
+  } else if (typeof window !== 'undefined') {
+    window.catmullrom = catmullrom;
+  } else if (typeof global !== 'undefined') {
+    global.catmullrom = catmullrom;
+  } else if (typeof self !== 'undefined') {
+    self.catmullrom = catmullrom;
+  } else {
+    this.catmullrom = catmullrom;
+  }
+}).call(this);

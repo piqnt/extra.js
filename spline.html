@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script src="spline.js"></script>
+<script src="catmullrom.js"></script>
+<script src="bezier.js"></script>
 <script>
   function run() {
     var canvas = document.getElementById("canvas");
@@ -11,11 +12,11 @@
     var ctx = canvas.getContext("2d");
 
     var points = [ [ 110, 200 ], [ 200, 50 ], [ 210, 50 ], [ 300, 200 ] ];
-    draw(ctx, Spline.catmullrom(points, {
+    draw(ctx, catmullrom(points, {
       alpha : 0.2
     }), "black", 1);
     draw(ctx, points, "red", 3);
-    draw(ctx, Spline.catmullrom(points, {
+    draw(ctx, catmullrom(points, {
       alpha : 0.2,
       close : true
     }), "black", 1);
@@ -23,13 +24,13 @@
 
     var points = [ [ 100, 100 ], [ 200, 50 ], [ 300, 100 ], [ 400, 50 ],
         [ 500, 100 ] ];
-    draw(ctx, Spline.catmullrom(points, {
+    draw(ctx, catmullrom(points, {
       alpha : 0.2
     }), "black", 1);
     draw(ctx, points, "red", 3);
 
     var points = [ [ 100, 100 ], [ 300, 100 ], [ 100, 300 ], [ 300, 300 ] ];
-    draw(ctx, Spline.bezier(points), "black", 1);
+    draw(ctx, bezier(points), "black", 1);
     draw(ctx, points, "red", 3);
   }
 
