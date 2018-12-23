@@ -1,7 +1,7 @@
 {
-  "name": "extrajs",
+  "name": "game-bits",
   "repository": {
     "type": "git",
-    "url": "git://github.com/piqnt/extrajs.git"
+    "url": "git://github.com/shakiba/game-bits.git"
   }
 }

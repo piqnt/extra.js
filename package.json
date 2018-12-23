@@ -1,13 +1,13 @@
 {
-  "name": "extrajs",
-  "version": "0.1.0",
+  "name": "game-bits",
+  "version": "0.0.1",
   "description": "",
-  "keywords": [
-  ],
+  "author": "Ali Shakiba",
+  "keywords": [],
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/piqnt/extrajs.git"
+    "url": "git://github.com/shakiba/game-bits.git"
   },
   "dependencies": {},
   "devDependencies": {

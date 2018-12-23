@@ -1,6 +1,6 @@
 /*
- * ExtraJS
- * Copyright (c) 2015 Ali Shakiba, Piqnt LLC
+ * Game Bits
+ * Copyright (c) 2019 Ali Shakiba
  * Available under the MIT license
  * @license
  */
